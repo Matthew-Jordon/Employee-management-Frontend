@@ -22,7 +22,7 @@
 <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="update" id="update" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
-      <form (ngSubmit)="onSubmit(form)" #form="ngForm" >
+      <form #form="ngForm" >
         <input type="text" hidden ngModel="{{employee?.id}}" name="id" class="form-control" ngModel>
         <div class="form-group">
           <label for="name">Employee Name</label>
@@ -45,7 +45,7 @@
           <input type="text" name="photo" class="form-control" ngModel="{{employee?.photo}}" ngModel required>
         </div>
         <div class="form-group">
-          <button type="submit" class="btn btn-primary">Update Employee</button>
+          <button type="button" (click)="onSubmit(form)" class="btn btn-primary" data-dismiss="modal">Update Employee</button>
         </div>
       </form>
     </div>
@@ -58,7 +58,7 @@
     <div class="modal-content">
       <p class="h4">Employee {{employee?.name}} will be deleted.</p>
       <div>
-        <button class="btn btn-danger" (click)="confirmDelete(employee.id)">Ok</button>
+        <button class="btn btn-danger" (click)="confirmDelete(employee.id)" data-dismiss="modal">Ok</button>
         <button class="btn btn-secondary" data-dismiss="modal">Cancel</button>
       </div>
     </div>

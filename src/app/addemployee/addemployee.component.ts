@@ -18,12 +18,7 @@ export class AddemployeeComponent implements OnInit {
 
   onSubmit(form:any) {
     if (!form.invalid) {
-      this.service.addEmployee(form.value).subscribe((response)=>{
-        this.employees.employees.push(form.value)
-      },(error)=>{
-        alert(error.message)
-      });
-      this.employees.getEmployees()
+      this.service.addEmployee(form.value)
       this.router.navigate(['/employees'])
     }
   }

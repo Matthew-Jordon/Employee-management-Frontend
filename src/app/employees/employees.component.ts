@@ -13,22 +13,38 @@ import { Router } from '@angular/router';
 }
 )
 export class EmployeesComponent implements OnInit {
-  employees!:Employee[];
-  employee:any
 
-  constructor(public service: EmployeemanagerService, public router:Router) { }
+  employees!:Employee[]
+  employee!:Employee
+
+  constructor(public service: EmployeemanagerService, public router:Router) {
+
+   }
 
   ngOnInit() {
-    this.getEmployees();
+    this.service.employeeschanged.subscribe(()=>{
+      this.employees=this.service.employees.slice()
+    })
+    this.getEmployees()
   }
 
   getEmployees() {
-    return this.service.getEmployees().subscribe(
-      (response:any)=> {
-      this.employees = response
-      }, (error:any)=>{
-        alert(error.message)
-    });
+    this.service.getEmployees()
+  }
+
+  searchEmployees(key:string) {
+    const results = []
+    for (const employee of this.service.employees) {
+      if (employee.name.toLowerCase().indexOf(key.toLowerCase())!== -1) {
+        results.push(employee)
+      }
+    }
+    if (results.length == 0 || !key) {
+      this.getEmployees()
+    }else{
+      this.service.employees=results
+      this.service.employeeschanged.next()
+    }
   }
 
 
@@ -50,19 +66,12 @@ export class EmployeesComponent implements OnInit {
   }
 
   onSubmit(form:any) {
-    console.log(form.value)
-    /* this.service.updateEmployee(form.value).subscribe(
-      (response:any)=>{
-    },(error)=>{
-      alert(error)
-    }); */
-
+    this.service.updateEmployee(form.value)
+    this.getEmployees()
   }
 
   confirmDelete(id:number) {
-    this.service.deleteEmployee(id).subscribe((response)=>{},(error)=>{
-      alert(error.message)
-    })
+    this.service.deleteEmployee(id)
     this.getEmployees()
   }
 }

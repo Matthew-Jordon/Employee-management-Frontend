@@ -1,38 +1,61 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { Employee } from './employee';
-import { EmployeesComponent } from './employees/employees.component';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EmployeemanagerService {
 
+  employeeschanged = new Subject<void>();
+  employees!:Employee[]
+
   constructor(private http: HttpClient) {}
 
-  apiUrl = 'http://172.28.144.1:8080/employee/'
+  private apibaseUrl = environment.apiUrl
 
-  public  getEmployees(): Observable<Employee[]> {
-    return this.http.get<Employee[]>(`${this.apiUrl}all`)
+  public  getEmployees() {
+    this.http.get<Employee[]>(`${this.apibaseUrl}all`).subscribe((response)=>{
+      this.employees = response
+      this.employeeschanged.next()
+    }, (error)=>{
+      alert(error.message)
+    })
   }
 
-  public addEmployee(employee: Employee): Observable<Employee> {
-    return this.http.post<Employee>(`${this.apiUrl}add`, employee)
+  public addEmployee(employee: Employee) {
+    this.http.post<Employee>(`${this.apibaseUrl}add`, employee).subscribe((response)=>{
+      this.getEmployees()
+     },
+    (error)=>{
+      alert(error.message)
+    })
   }
 
   public updateEmployee(employee: Employee) {
-    return this.http.put(`${this.apiUrl}update`, employee)
+    this.http.put(`${this.apibaseUrl}update`, employee).subscribe((response)=>{
+      this.getEmployees()
+     },
+    (error)=>{
+      alert(error.message)
+    })
+
   }
 
   public findEmployee(id:number) {
-    return this.http.get(`${this.apiUrl}find/${id}`)
+    return this.http.get(`${this.apibaseUrl}find/${id}`)
   }
 
-  public deleteEmployee(id:number):Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}delete/${id}`)
+  public deleteEmployee(id:number) {
+    this.http.delete<void>(`${this.apibaseUrl}delete/${id}`).subscribe((response)=>{
+      this.getEmployees()
+     },
+    (error)=>{
+      alert(error.message)
+    });
   }
-
 }
 
 
