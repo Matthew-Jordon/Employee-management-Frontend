@@ -1,0 +1,8 @@
+<h1 mat-dialog-title>Delete {{employee?.name}}</h1>
+  <div mat-dialog-content>
+    <p>Employee {{employee?.name}} will be deleted. This action cnnot be undone.</p>
+    <div id="buttons">
+      <button mat-raised-button color="warn" (click)="confirmDelete(employee.id)" matDialogClose>Ok</button>
+      <button mat-raised-button color="secondary" mat-dialog-close>Cancel</button>
+    </div>
+  </div>

@@ -2,6 +2,9 @@ import {  Component, Injectable, OnInit } from '@angular/core';
 import { EmployeemanagerService } from '../employeemanager.service';
 import { Employee } from '../employee';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { UpdateDialogComponent } from '../update-dialog/update-dialog.component';
+import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
 
 @Component({
   selector: 'app-employees',
@@ -17,7 +20,7 @@ export class EmployeesComponent implements OnInit {
   employees!:Employee[]
   employee!:Employee
 
-  constructor(public service: EmployeemanagerService, public router:Router) {
+  constructor(public service: EmployeemanagerService, public router:Router, public dialog:MatDialog) {
 
    }
 
@@ -49,29 +52,16 @@ export class EmployeesComponent implements OnInit {
 
 
   onClick(employee: Employee, mode:string) {
-    const container = document.getElementById('container');
-    const button =document.createElement('button');
-    button.type='button';
-    button.style.display='none';
-    button.setAttribute('data-toggle', 'modal');
-    if (mode === 'update') {
-      button.setAttribute('data-target', '#update');
+    if (mode == 'update') {
+      const dialogRef = this.dialog.open(UpdateDialogComponent, {
+        width: '300px',
+        data: employee,
+    });
+    } else {
+      const dialogRef = this.dialog.open(DeleteDialogComponent, {
+        width: '300px',
+        data: employee,
+      });
     }
-    if (mode === 'delete') {
-      button.setAttribute('data-target', '#delete');
-    }
-    this.employee = employee;
-    container?.appendChild(button);
-    button.click();
-  }
-
-  onSubmit(form:any) {
-    this.service.updateEmployee(form.value)
-    this.getEmployees()
-  }
-
-  confirmDelete(id:number) {
-    this.service.deleteEmployee(id)
-    this.getEmployees()
   }
 }

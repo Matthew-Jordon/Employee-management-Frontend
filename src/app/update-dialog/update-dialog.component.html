@@ -1,0 +1,29 @@
+<h1 mat-dialog-title>{{employee?.name}} info</h1>
+  <div mat-dialog-content>
+    <form #form="ngForm">
+      <input type="text" hidden ngModel="{{employee?.id}}" name="id" ngModel>
+      <mat-form-field appearance="outline">
+        <mat-label>Employee Name</mat-label>
+        <input matInput type="text" name="name" ngModel="{{employee?.name}}" ngModel required>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Job Title</mat-label>
+        <input matInput type="text" name="title" ngModel="{{employee?.title}}" ngModel required>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Email Address</mat-label>
+        <input matInput type="text" name="email" ngModel="{{employee?.email}}" ngModel required>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Phone Number</mat-label>
+        <input matInput type="text" name="phone" ngModel="{{employee?.phone}}" ngModel required>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Photo Url</mat-label>
+        <input matInput type="text" name="photo" ngModel="{{employee?.photo}}" ngModel required>
+      </mat-form-field>
+      <div>
+        <button type="button" color="primary" (click)="onSubmit(form.value)" mat-raised-button matDialogClose>Update Employee</button>
+      </div>
+    </form>
+  </div>

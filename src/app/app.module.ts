@@ -5,23 +5,42 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { AddemployeeComponent } from './addemployee/addemployee.component';
 import { EmployeesComponent } from './employees/employees.component';
-import { Employee } from './employee';
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module'
 import { EmployeemanagerService } from './employeemanager.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatFormFieldModule, MatFormFieldControl } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatDialogModule } from '@angular/material/dialog';
+import { UpdateDialogComponent } from './update-dialog/update-dialog.component';
+import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     AddemployeeComponent,
-    EmployeesComponent
+    EmployeesComponent,
+    UpdateDialogComponent,
+    DeleteDialogComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     FormsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    MatCardModule,
+    MatButtonModule,
+    MatIconModule,
+    MatTabsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatDialogModule
   ],
   providers: [EmployeemanagerService],
   bootstrap: [AppComponent]

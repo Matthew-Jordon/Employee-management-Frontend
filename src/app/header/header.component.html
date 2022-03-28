@@ -1,7 +1,5 @@
-<ul class="nav nav-pills">
-  <li role="presentation" class="nav-item"><a routerLink="employees" routerLinkActive="active" class="nav-link">Employees</a></li>
-  <li role="presentation" class="nav-item"><a routerLink="new-employee" routerLinkActive="active" class="nav-link">Add Employee</a></li>
-  <li role="presentation" class="nav-item"><div class="form-group">
-    <input type="text" class="form-control" placeholder="Search" [(ngModel)]="key" (input)="employees.searchEmployees(key)" ngModel>
-  </div></li>
-</ul>
+<nav mat-tab-nav-bar>
+  <a mat-tab-link [routerLink]="['/employees']" (click)="activeLink='employees'" [active] = "activeLink=='employees'">Employees</a>
+  <a mat-tab-link [routerLink]="['/new-employee']" (click)="activeLink='new-employee'" [active] ="activeLink=='new-employee'">New Employee</a>
+  <input type="search" class="form-control" placeholder="Search" [(ngModel)]="key" (input)="employees.searchEmployees(key)" ngModel>
+</nav>
