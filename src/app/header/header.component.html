@@ -1,5 +1,5 @@
 <nav mat-tab-nav-bar>
-  <a mat-tab-link [routerLink]="['/employees']" (click)="activeLink='employees'" [active] = "activeLink=='employees'">Employees</a>
+  <a mat-tab-link [routerLink]="['/employees']" (click)="activeLink='employees'"  [active] = "activeLink=='employees'">Employees</a>
   <a mat-tab-link [routerLink]="['/new-employee']" (click)="activeLink='new-employee'" [active] ="activeLink=='new-employee'">New Employee</a>
   <input type="search" class="form-control" placeholder="Search" [(ngModel)]="key" (input)="employees.searchEmployees(key)" ngModel>
 </nav>
